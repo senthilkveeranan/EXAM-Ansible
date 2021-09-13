@@ -7,9 +7,9 @@
         yum: 
           name: "{{ item }}"
           state: latest
-      loop:
-         - php
-         - madiadb 
+        loop:
+          - php
+          - madiadb 
 
       - name: Installing Development Tools package group on hosts in the dev host group
         yum:
