@@ -1,0 +1,26 @@
+---
+ - hosts: dev,balancers,prod
+   become: True
+   remote_user: ansadmin
+   tasks:
+      - name: Installing mariadb and php in all servers
+        yum: 
+          name: "{{ item }}"
+          state: latest
+      loop:
+         - php
+         - madiadb 
+
+      - name: Installing Development Tools package group on hosts in the dev host group
+        yum:
+          name: '@Development Tools'
+          state: latest
+        when: inventory_hostname in groups['dev']  
+
+      - name: Updates all packages to the latest version on hosts in the dev host group
+        yum:
+          name: "*"
+          state: latest
+        when: inventory_hostname in groups['dev']  
+                 
+     
